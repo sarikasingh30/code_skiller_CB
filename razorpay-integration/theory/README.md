@@ -28,7 +28,7 @@ To integrate the Razorpay payment gateway into a Node.js application, we will us
 <img src="./Capture5.PNG" alt="Alt Text" width="800" height="400">
 
 
-## Steps to integrate Razorpay with Node.
+## Steps to integrate Razorpay with Node
 
 Follow the steps given below to get started:
 
@@ -142,7 +142,7 @@ Let's break this down step by step:
 
     a. Create **index.ejs** file in **views** folder
     
-    <img src="./Capture6.PNG" alt="Alt Text" width="300" height="200">
+    <img src="./Capture6.PNG" alt="Alt Text" height="200">
 
     b. Set up EJS Template Engine and render in **app.js** 
 
@@ -183,6 +183,294 @@ Let's break this down step by step:
 
     c. HTML Structure in **index.ejs**
     ```
-        
+        <!--
+
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Razorpay Payment</title>
+            <!-- the below script tag loads a js file from the Razorpay server. 
+            It has some code inside it, which is responsible for executing this whole code snippet. -->
+            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        </head>
+
+        <body>
+            <h1>Make a Payment</h1>
+            <form id="payment-form">
+                <label for="amount">Amount (in INR):</label>
+                <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+
+                <div>
+                    <button type="button" id="pay-button">Pay Now</button>
+                </div>
+            </form>
+
+            
+        </body>
+
+    </html>
+        -->
     
     ```
+
+    d. **API Route for Creating an Order:** 
+
+      i. Set up an API route **(/order)** to handle Razorpay order creation.
+
+      ii. Trigger this route from the frontend, capture order details.
+        **(In Razorpay, the amount is required to be in the smallest currency unit i.e., paise in INR. Therefore, we need to multiply it by 100 to change in rupees.)**
+
+      iii. Send a request to Razorpay to create an order. 
+    
+      iv. Upon success, return the order ID to the frontend for integration with Razorpay Checkout. 
+
+    ```
+        const express=require("express")
+        const Razorpay=require("razorpay")
+        const path = require('path');
+        const dotEnv=require("dotenv")
+        const {v4: uuidv4} =require("uuid")
+        dotEnv.config()
+        const app=express()
+        const PORT=8080
+        app.set('view engine', 'ejs');
+        app.use(express.json())
+        app.use(express.urlencoded({extended:true}))
+        filepath=path.join(__dirname,"/views/index.ejs")
+
+        // initializing razorpay
+        const razorpay = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_KEY_SECRET,
+        });
+
+        app.get("/", (req, res) => {
+            res.render(filepath);
+        });
+
+        // API Route "/order"
+        app.post('/order', async (req, res) => {
+            
+            // setting up options for razorpay order. (getting values from frontend)
+            const options = {
+                amount: req.body.amount*100,      // changing paise in rupees
+                currency: req.body.currency,
+                receipt: uuidv4(),              // used uuid package to create unique receipt field
+                payment_capture: 1
+            };
+
+            try {
+                // Sending a request to Razorpay(Sending order information from NodeJS Server to Razorpay Server)
+                const response = await razorpay.orders.create(options)
+
+                // returning response(Received from Razorpay) to the frontend
+                res.json({
+                    order_id: response.id,
+                    currency: response.currency,
+                    amount: response.amount,
+                })
+            } catch (err) {
+            res.status(400).send('Not able to create order. Please try again!');
+            }
+        });
+
+        app.listen(PORT,(err)=>{
+            if(err){
+                console.log(err)
+            }
+            else{
+                console.log(`Listening on PORT: ${PORT}`)
+            }
+        })
+    ```
+    e. **Frontend (JavaScript) Initiating the Request:**
+    
+    When the user enters an amount and clicks the "Pay Now" button, the JavaScript in the frontend listens for that click event. **(Add script tag to the index.ejs)**
+
+    ```
+    <script>
+        // added event listener to the button
+        document.getElementById('pay-button').addEventListener('click', async () => {
+            const amount = document.getElementById('amount').value;
+            if (!amount || amount <= 0) {
+                alert("Please enter a valid amount.");
+                return;
+            }
+            try {
+                // making request to backend route "/order:
+                const response = await fetch('/order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount, currency: "INR" }),
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    const options = {
+                        key: '<%= process.env.RAZORPAY_KEY_ID %>', // Razorpay Key ID
+                        amount: result.amount,
+                        currency: result.currency,
+                        name: "Test Payment",
+                        description: "Pay securely using Razorpay",
+                        order_id: result.order_id,
+                        handler: function (response) {
+                            const paymentData = {
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature,
+                            };
+                        },
+                        theme: {
+                            color: "#020c4f",
+                        },
+                    };
+                    const razorpay = new Razorpay(options);
+                    razorpay.open();
+                } else {
+                    alert("Failed to create order. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while creating the order.");
+            }
+        });
+    </script>
+    ```
+
+#### Step 5: Verify authenticity and respond to the User accordingly.
+
+a. **Set Up API Route:**
+    Create an API route **(/verify-payment)** specifically for payment capture and verification. 
+
+b. **Receive Payment Details:**
+    Collect razorpay_order_id, razorpay_payment_id, and razorpay_signature from Razorpay after payment.
+
+c. **Verify Payment:**
+    Use Razorpay's verification logic to validate the received payment details.
+    To verify the payment:
+
+    Generate Signature on Server:
+    Create a signature on your server using the order_id and razorpay_payment_id from the response.
+    We use crypto npm package to generate signature.
+
+    Use the Secret Key:
+    Utilize the key_secret obtained earlier from the Razorpay dashboard while generating API keys.
+
+    Apply SHA256 Algorithm:
+    Use the SHA256 cryptographic function to generate a hash. This function takes arguments (e.g., order_id, payment_id) and the secret key to produce a crypto hash.
+
+    Validate Authenticity:
+    Compare the generated signature with razorpay_signature to confirm the payment's authenticity.
+
+d. **Confirm Payment Success:**
+    Send a verified response to the frontend, confirming payment success.
+
+```
+    //API Route for veifying payments (add this to app.js)
+    app.post("/verify-payment", (req, res) => {
+        const {razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+        const keySecret = process.env.RAZORPAY_KEY_SECRET;
+
+        const hmac = crypto.createHmac("sha256", keySecret);
+        hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
+
+        const generatedSignature = hmac.digest("hex");
+
+        if (generatedSignature === razorpay_signature) {
+            res.status(200).json({ status: "success", message: "Payment verified" });
+        } else {
+            res.status(400).json({ status: "failure", message: "Invalid signature" });
+        }
+    });     
+
+```
+
+e. **Integrate Callback Function:**
+    Implement a callback function on the frontend to trigger verification and handle the result seamlessly.
+    Update script tag in **index.ejs**
+
+```
+    <script>
+        // function to verify Payment
+        function verifyPayment(paymentData) {
+            fetch("http://localhost:8080/verify-payment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(paymentData),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status === "success") {
+                        alert("Payment verified successfully!");
+                    } else {
+                        alert("Payment verification failed: " + data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error verifying payment:", error);
+                });
+        }
+
+        // added event listener to the button
+        document.getElementById('pay-button').addEventListener('click', async () => {
+            const amount = document.getElementById('amount').value;
+            if (!amount || amount <= 0) {
+                alert("Please enter a valid amount.");
+                return;
+            }
+            try {
+                // making request to backend route "/order:
+                const response = await fetch('/order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount, currency: "INR" }),
+                });
+                const result = await response.json();
+                console.log(result)
+                if (response.ok) {
+                    const options = {
+                        key: '<%= process.env.RAZORPAY_KEY_ID %>', // Razorpay Key ID
+                        amount: result.amount,
+                        currency: result.currency,
+                        name: "Test Payment",
+                        description: "Pay securely using Razorpay",
+                        order_id: result.order_id,
+
+                        handler: function (response) {
+
+                            const paymentData = {
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature,
+                            };
+
+                            // Send payment details to the backend for verification
+                            verifyPayment(paymentData);
+                        },
+                        theme: {
+                            color: "#020c4f",
+                        },
+                    };
+                    const razorpay = new Razorpay(options);
+
+                    razorpay.open();
+                } else {
+                    alert("Failed to create order. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while creating the order.");
+            }
+        });
+    </script>
+    
+```
+
+
+## Implementation (refer GitHub Repo)
+[GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/razorpay-integration/implementation)

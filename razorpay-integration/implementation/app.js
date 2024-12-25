@@ -22,17 +22,22 @@ const razorpay = new Razorpay({
 app.get("/", (req, res) => {
     res.render(filepath);
 });
+
+// API Route "/order"
+
 app.post('/order', async (req, res) => {
     
     // setting up options for razorpay order.
     const options = {
-        amount: req.body.amount*100,
+        amount: req.body.amount*100,    // changing paise in rupees
         currency: req.body.currency,
-        receipt: uuidv4(),
+        receipt: uuidv4(),             // used uuid package to create unique receipt field
         payment_capture: 1
     };
     try {
+        // Sending a request to Razorpay(Sending order information from NodeJS Server to Razorpay Server)
         const response = await razorpay.orders.create(options)
+        // returning response(Received from Razorpay) to the frontend
         res.json({
             order_id: response.id,
             currency: response.currency,
@@ -70,3 +75,7 @@ app.listen(PORT,(err)=>{
         console.log(`Listening on PORT: ${PORT}`)
     }
 })
+
+
+
+
