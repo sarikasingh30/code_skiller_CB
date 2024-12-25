@@ -472,5 +472,18 @@ e. **Integrate Callback Function:**
 ```
 
 
+## DEMO SCREENSHOTS
+
+<img src="./Capture7.PNG" alt="Alt Text" width="600" />
+<img src="./Capture8.PNG" alt="Alt Text" width="600" />
+<img src="./Capture9.PNG" alt="Alt Text" width="600" />
+<img src="./Capture10.PNG" alt="Alt Text" width="600" />
+<img src="./Capture11.PNG" alt="Alt Text" width="600" />
+<img src="./Capture12.PNG" alt="Alt Text" width="600" />
+<img src="./Capture13.PNG" alt="Alt Text" width="600" />
+<img src="./Capture14.PNG" alt="Alt Text" width="600" />
+<img src="./Capture15.PNG" alt="Alt Text" width="600" />   
+
+
 ## Implementation (refer GitHub Repo)
 [GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/razorpay-integration/implementation)
