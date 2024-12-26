@@ -11,6 +11,8 @@ npm init -y
 Now, create **app.js** file for the Node.js backend server.
 
 ```
+// File: app.js
+
 const express=require("express")
 const app=express()
 const PORT=3030
@@ -27,6 +29,9 @@ app.listen(PORT,(err)=>{
 ```
 
 ### Step 2 : Install the required dependencies
+- **passport** — Middleware for handling authentication in Node.js and Express applications.
+
+- **passport-google-oauth20** — A Passport strategy that enables authentication via Google, allowing users to log in using their Google account.
 
 ```
 npm i express mongoose ejs bcrypt dotenv express-session passport passport-google-oauth20
@@ -61,7 +66,7 @@ SECRET_KEY=""
 ### Step 5 : Connect to MongoDB database using mongoose in app.js
 
 ```
-//app.js
+// File: app.js
 
 const express = require("express")
 const mongoose = require('mongoose');
@@ -89,7 +94,7 @@ mongoose.connect(process.env.MONGO_URL)
 ### Step 6 : Set up the View engine as ejs to get HTML for Login and Profile Page
 
 ```
-//app.js
+// File: app.js
 
 const express = require("express")
 const mongoose = require('mongoose');
@@ -114,10 +119,12 @@ mongoose.connect(process.env.MONGO_URL)
     }).catch((err) => console.log(err));
 
 ```
-### Step 7 : Create **login.ejs** and **profile.ejs** files.
+### Step 7 : Create **login.ejs** and **profile.ejs** files for login and profile page respectively.
 
 - login.ejs
     ```
+    // File: views/login.ejs 
+
     <!DOCTYPE html>
     <html lang="en">
 
@@ -142,6 +149,8 @@ mongoose.connect(process.env.MONGO_URL)
     ```
 - profile.ejs
     ```
+    // File: views/profile.ejs
+
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -158,3 +167,25 @@ mongoose.connect(process.env.MONGO_URL)
     </body>
     </html>
     ```
+
+### Step 8 : Create **user** model
+The User model defines the structure of the user data in the database.
+```
+// File: models/user.js
+
+const mongoose=require("mongoose")
+const userSchema=new mongoose.Schema({
+    googleId:{type:String},
+    googleAccessToken:{type:String},
+    username: {type:String}
+    
+})
+module.exports=mongoose.model("user", userSchema)
+```
+
+- **googleId**: This field stores the unique Google ID of the user, which is used for identifying the user after they authenticate via Google OAuth.
+
+- **googleAccessToken**: This field stores the access token received after a user logs in through Google. The access token is used to make authorized requests to Google services on behalf of the user.
+
+- **username:** This field stores the username of the user. It will be extracted from the user's Google profile after authentication.
+
