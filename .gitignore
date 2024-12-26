@@ -1,3 +1,5 @@
-/razorpay-integration/implementation/.env
+/googleOauth/passport_google_oauth2.0/implementation/.env
+/googleOauth/passport_google_oauth2.0/implementation/node_modules
 
+/razorpay-integration/implementation/.env
 /razorpay-integration/implementation/node_modules
