@@ -1,12 +1,10 @@
 const path=require("path")
-const Users=require("../models/user")
-const bcrypt=require("bcrypt")
 
 const filepath=path.join(__dirname,"../views/login.ejs")
 module.exports.getLogin=(req,res)=>{
     if(req.user){
-        return res.redirect("/profile")
+        return res.redirect("/profile")   //  Redirect to profile if user is already logged in
     }
-    res.render(filepath);
+    res.render(filepath);                 // Render the login page if user is not logged in
 }
 
