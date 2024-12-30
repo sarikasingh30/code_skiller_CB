@@ -20,8 +20,8 @@ app.use(session({
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URL })
 }))
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize());   // middleware initializes passport.js in the application
+app.use(passport.session());     //  middleware enables session-based authentication in the application.
 
 app.get("/", (req, res) => {
     return res.redirect("/login")
