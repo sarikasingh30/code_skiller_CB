@@ -1,5 +1,7 @@
-# Google OAuth Integration
-Google OAuth Integration is a powerful feature that enables users to authenticate their identity using their Google account. This process is commonly used in web applications to provide a seamless, secure, and convenient way for users to log in without needing to remember additional usernames or passwords. It relies on the OAuth 2.0 protocol, which is an industry-standard for secure authorization.
+# Google OAuth Integration Guide for Node.js Applications
+Google OAuth Integration is a powerful feature that enables users to authenticate their identity using their Google account. Secure Authentication Workflows ensure that user identities are verified through reliable and safe processes, minimizing the risk of unauthorized access. This process, commonly used in web applications, allows users to log in without needing to remember additional usernames or passwords. It relies on the OAuth 2.0 protocol, an industry-standard for secure authorization. As part of this, a Beginner's Guide to OAuth provides a simple introduction to how OAuth 2.0 enables secure, token-based authentication for third-party applications.
+
+*OAuth Implementation Best Practices* ensure that OAuth is integrated securely, including practices such as using secure redirect URIs, validating tokens, and following least privilege access principles to protect user data.
 
 ## Why Use Google OAuth?
 
@@ -12,14 +14,14 @@ Google OAuth Integration is a powerful feature that enables users to authenticat
 
 ## How Google OAuth Works ?
 
-1. **User Interaction:** The user clicks "Login with Google" and authenticates on Google's page.
+1. **User Interaction:** The user clicks "Login Using Google Account" and authenticates on Google's page. 
 2. **Authorization:** Google requests permission to share specific user data.
 3. **Token Exchange:** An authorization code or token is sent to the application.
 4. **Data Fetching:** The app uses the token to retrieve user data securely.
 5. **Authentication Completion:** The app verifies data, updates the database, and starts a user session.
 
 ## Role of Passport in Google OAuth Integration
-Passport.js is a popular Node.js middleware that simplifies the process of implementing authentication strategies, including Google OAuth. With Passport, you don’t need to handle the complex details of the OAuth protocol. .
+ Passport.js Integration simplifies the process of implementing OAuth in Node.js applications. By using Passport.js(**popular Node.js middleware**), developers can integrate Google OAuth seamlessly, handling the authentication flow and managing user sessions with minimal effort. With Passport, you don’t need to handle the complex details of the OAuth protocol. 
 
  - **Google Strategy**: 
     - Passport provides a *passport-google-oauth20* strategy specifically for integrating Google OAuth 2.0.
@@ -33,6 +35,7 @@ Passport.js is a popular Node.js middleware that simplifies the process of imple
     - *passport.serializeUser()* and *passport.deserializeUser()* are used to manage user data in sessions effectively.
 
 ## Steps for Google OAuth Integration
+We will use Node.js and Google API to enable secure user authentication and data access through Google OAuth.
 
 ### Step 1 : Setup a basic Node.js App
 
@@ -47,6 +50,7 @@ Now, create **app.js** file for the Node.js backend server.
 const express=require("express")
 const app=express()
 const PORT=3030
+// Express.js Middleware
 app.use(express.json())
 
 app.listen(PORT,(err)=>{
@@ -65,7 +69,7 @@ app.listen(PORT,(err)=>{
 
 - **passport-google-oauth20** — A Passport strategy that enables authentication via Google, allowing users to log in using their Google account.
 
-- **connect-mongo** —  connect-mongo is a library used to store session data in a MongoDB database when using the express-session middleware in a Node.js application. This ensures that session data persists even if the server restarts, providing better scalability and durability compared to in-memory session storage.
+- **connect-mongo** — enables MongoDB Session Storage by storing session data in a MongoDB database when used with express-session in a Node.js application. This ensures session persistence across server restarts, providing better scalability and durability than in-memory storage.
 
 ```
 npm i express mongoose ejs bcrypt dotenv express-session passport passport-google-oauth20 connect-mongo
@@ -81,41 +85,41 @@ SECRET_KEY=""
 ```
 
 ### Step 4 : Set up a Google Developer Console Project
-1. Visit the Google Developer Console.
+1. Visit the **Google Developer Console**.
 2. Create a new project or select an existing one.
 
-    <img src="./google-console-creating-new-project.PNG" alt="Alt Text" width="700">
+    <img src="./google-console-creating-new-project.PNG" alt="creating new project on google console" width="700">
 
 
 3. Enable the Google+ API or Google Identity Platform for your project.
 
-    <img src="./google-console-dashboard.PNG" alt="Alt Text" width="700">
+    <img src="./google-console-dashboard.PNG" alt="google console dashboard" width="700">
 
 
 4. Set up OAuth 2.0 credentials:
 
-    <img src="./google-oauth-consent-screen.PNG" alt="Alt Text" width="700" >
+    <img src="./google-oauth-consent-screen.PNG" alt="google console oauth consent screen" width="700" >
 
-    <img src="./google-oauth-consent-screen-app-info.PNG" alt="Alt Text" width="700">
+    <img src="./google-oauth-consent-screen-app-info.PNG" alt="google console oauth consent screen app info" width="700">
 
 
 5. Go to the Credentials tab. Click on Create Credentials → OAuth 2.0 Client IDs.
 
-    <img src="./google-console-create-credentials-oauth-clientID.PNG" alt="Alt Text" width="700">
+    <img src="./google-console-create-credentials-oauth-clientID.PNG" alt="google console create credentials" width="700">
 
 6. Click on **Application type** and choose **Web application**
 
-    <img src="./google-console-create-oauth-clientId-app-info.PNG" alt="Alt Text" width="700">
+    <img src="./google-console-create-oauth-clientId-app-info.PNG" alt="google console create credentials clientId app info" width="700">
 
 
-7. Set the Authorized redirect URIs 
+7. Set the Authorized redirect URIs (OAuth Redirect URIs)
     (e.g., http://localhost:3030/login/google and http://localhost:3000/login/auth/google/callback for local development).
 
-    <img src="./google-console-oauth-clientId-redirectURL.PNG" alt="Alt Text" width="700">
+    <img src="./google-console-oauth-clientId-redirectURL.PNG" alt="google console oauth clientId redirectURLs" width="700">
 
 8. Note down the **Client ID** and **Client Secret**. These will be used in the OAuth flow.
 
-    <img src="./google-console-oauth-client-created.PNG" alt="Alt Text" width="700">
+    <img src="./google-console-oauth-client-created.PNG" alt="google console oauth client created" width="700">
 
 9. To use these credentials, save them in a **.env** file.
 
@@ -135,7 +139,9 @@ const app = express()
 const dotEnv = require("dotenv")    // import dotenv npm package
 const PORT = 3030
 dotEnv.config()                     // configuring dotenv
+//Express.js Middleware
 app.use(express.json())
+//Express.js Middleware
 app.use(express.urlencoded({ extended: true }))
 mongoose.connect(process.env.MONGO_URL)               // fetching MONGO_URL from .env file
     .then(() => {
@@ -209,7 +215,7 @@ app.set('view engine', 'ejs');
     </html>
     ```
 
-### Step 8 : Configure sessions using **express-session** and **connect-mongo** for storing sessions in MongoDB.
+### Step 8 : Configure sessions using **express-session** and **connect-mongo** for User Session Management.
 
 ```
 // File: /app.js
@@ -527,3 +533,15 @@ app.get("/logout",(req,res)=>{
 
 ## Implementation (refer GitHub Repo)
 [GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/googleOauth/passport_google_oauth2.0/implementation)
+
+## References and Resources
+
+- [Introduction to OAuth 2.0](https://cloud.google.com/apigee/docs/api-platform/security/oauth/oauth-introduction)
+- [Setting up OAuth 2.0](https://support.google.com/cloud/answer/6158849?hl=en)
+- [passport.js official documentation](https://www.passportjs.org/)
+- [Passport strategy for Google OAuth 2.0](https://www.passportjs.org/packages/passport-google-oauth2/)
+- [NodeJS Official Documentation](https://nodejs.org/docs/latest/api/)
+- [Express Documentation](https://expressjs.com/)
+- [Mongoose Official Documentation](https://mongoosejs.com/docs/)
+- [Express-Session npm package documentation](https://www.npmjs.com/package/express-session)
+- [Connect-Mongo npm package documentation](https://www.npmjs.com/package/connect-mongo)
