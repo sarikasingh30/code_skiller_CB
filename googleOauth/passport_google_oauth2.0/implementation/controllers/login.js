@@ -1,5 +1,4 @@
 const path=require("path")
-
 const filepath=path.join(__dirname,"../views/login.ejs")
 module.exports.getLogin=(req,res)=>{
     if(req.user){

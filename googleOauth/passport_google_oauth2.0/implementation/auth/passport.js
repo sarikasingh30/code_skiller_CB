@@ -12,10 +12,10 @@ passport.use(new GoogleStrategy({
     scope: ['profile', 'email']
 },
     async function (accessToken, refreshToken, profile, cb) {
-        console.log("AccessToken", accessToken)
-        console.log("refreshToken", refreshToken)
-        console.log("profile", profile)
-        
+        // console.log("AccessToken", accessToken)
+        // console.log("refreshToken", refreshToken)
+        // console.log("profile", profile)
+
         try {
             let user = await User.findOne({
                 googleId: profile.id
@@ -24,7 +24,7 @@ passport.use(new GoogleStrategy({
             user = await User.create({
                 googleAccessToken: accessToken,
                 googleId: profile.id,
-                username:profile.displayName,
+                username: profile.displayName,
 
             })
             cb(null, user)

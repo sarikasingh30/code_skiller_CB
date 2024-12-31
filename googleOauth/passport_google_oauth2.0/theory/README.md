@@ -34,6 +34,13 @@ Google OAuth Integration is a powerful feature that enables users to authenticat
     - The *passport.use()* method registers the Google OAuth strategy.
     - *passport.serializeUser()* and *passport.deserializeUser()* are used to manage user data in sessions effectively.
 
+## Prerequisites 
+1. **Node.js Basics** - Basic understanding of Node.js and its asynchronous programming model.
+2. **Express.js Fundamentals** - Familiarity with creating servers and managing routes using Express.js.
+3. **Working with MongoDB** - Knowledge of MongoDB and connecting to it with Mongoose.
+4. **HTML and EJS** - Ability to create and render HTML templates using EJS.
+5. **Authentication Concepts** - Understanding of user authentication and session management.
+
 ## Steps for Google OAuth Integration
 We will use Node.js and Google API to enable secure user authentication and data access through Google OAuth.
 
@@ -226,10 +233,10 @@ const MongoStore=require("connect-mongo")   // importing the connect-mongo
 
 // configuring the session 
 app.use(session({
-    secret: process.env.SECRET_KEY,
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URL })
+    secret: process.env.SECRET_KEY, // Secret key for session encryption
+    resave: false, // Prevent session resaving if unmodified
+    saveUninitialized: true, // Save sessions even if uninitialized
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }) // Store sessions in MongoDB
 }))
 
 ```
@@ -337,7 +344,6 @@ module.exports=mongoose.model("user", userSchema)
     dotEnv.config()
 
     var GoogleStrategy = require('passport-google-oauth20').Strategy;
-
     passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -345,10 +351,6 @@ module.exports=mongoose.model("user", userSchema)
         scope: ['profile', 'email']
     },
         async function (accessToken, refreshToken, profile, cb) {
-            console.log("AccessToken", accessToken)
-            console.log("refreshToken", refreshToken)
-            console.log("profile", profile)
-            
             try {
                 let user = await User.findOne({
                     googleId: profile.id
@@ -358,7 +360,6 @@ module.exports=mongoose.model("user", userSchema)
                     googleAccessToken: accessToken,
                     googleId: profile.id,
                     username:profile.displayName,
-
                 })
                 cb(null, user)
             } catch (err) {
@@ -425,8 +426,8 @@ module.exports=mongoose.model("user", userSchema)
     // File /controllers/login.js
 
     const path=require("path")
-
     const filepath=path.join(__dirname,"../views/login.ejs")
+
     module.exports.getLogin=(req,res)=>{
         if(req.user){
             return res.redirect("/profile")   //  Redirect to profile if user is already logged in
@@ -443,7 +444,8 @@ module.exports=mongoose.model("user", userSchema)
     const express = require("express")
     const router = express.Router()
     const myPassport = require("../auth/passport");
-
+    const loginHandler=require("../controllers/login")
+    router.get("/",loginHandler.getLogin)
     router.get('/google',
         myPassport.authenticate('google', { scope: ['profile'] }));
     
@@ -522,14 +524,43 @@ We define **/logout** route in app.js
 ```
 // File: /app.js
 
-app.get("/logout",(req,res)=>{
+app.get("/logout", (req, res, next) => {
     req.logout(function(err) {
-        if (err) { return next(err); }
+        if (err) {
+            return next(err);  // Pass the error to the error-handling middleware
+        }
         res.redirect('/login');
-      });
-})
+    });
+});
 
 ```
+
+### Step 15 : Testing and Debugging
+
+1. **Handling 404 Errors (Page Not Found)** : For routes that don’t exist, send a 404 response to indicate the resource isn’t found.
+    ```
+    // File : /app.js
+
+    // Handling 404 Errors (Page Not Found)
+    app.use((req, res, next) => {
+        res.status(404).json({ error: 'Page not found' });
+    });
+    ```
+
+2. **Basic Error-Handling Middleware** : Set up a basic error-handling middleware that catches all errors and sends a response to the user.
+
+    ```
+    // File : /app.js
+
+    // General error handling middleware
+    app.use((err, req, res, next) => {
+        console.error(err)       // Optionally log the error for debugging
+        res.status(500).json({ error: 'Something went wrong!' })
+    })
+    ```
+3. **Simple Try-Catch for Async Functions** : Wrap asynchronous code inside a try-catch block to handle any unexpected errors.
+ 
+4. **Return Meaningful Error Messages** : If there’s an error, provide a user-friendly message without exposing sensitive information.
 
 ## Implementation (refer GitHub Repo)
 [GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/googleOauth/passport_google_oauth2.0/implementation)
