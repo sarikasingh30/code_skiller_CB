@@ -21,11 +21,24 @@ It is suitable for all business sizes whether you’re running a **small startup
 To integrate the Razorpay payment gateway into a Node.js application, we will use the 
 **razorpay** npm package. 
 
+## Prerequisites
 
+1. **Basic Knowledge of JavaScript** : Understand ES6 syntax and asynchronous programming with promises or async/await.
+2. **Familiarity with Node.js** : Know how to create and run basic Node.js applications using npm.
+3. **Basic Knowledge of Express.js** : Be comfortable with routing, middleware, and setting up APIs.
+4. **Familiarity with EJS** : Understand how to render dynamic templates using EJS.
+5. **Understanding of REST APIs** : Know how to work with APIs to send requests and process responses.
+6. **Postman/REST Client** : Use tools like Postman to test and debug API endpoints.
+7. **dotenv for Environment Variables** : Securely store and access sensitive data using .env files.
+8. **Concept of Payment Gateways** : Have a basic understanding of how online payment systems operate.
+9. **HTML and Frontend Basics** : Create simple forms and interact with client-side JavaScript.
+10. **Basic Command Line Knowledge** : Use terminal commands to install packages and run applications.
+11. **Familiarity with UUID and Crypto Libraries** : Use libraries like *uuid* for unique IDs and *crypto* for secure hashing.
+12. **Razorpay Account** : Set up a Razorpay account to obtain API keys for integration. 
 
 ## Flowchart of servers-frontend communication
 
-<img src="./Capture5.PNG" alt="Alt Text" width="800" height="400">
+<img src="./servers-client-workflow.PNG" alt="servers-client-workflow" width="800" height="400">
 
 
 ## Steps to integrate Razorpay with Node
@@ -85,22 +98,22 @@ To access Razorpay APIs, you need API keys.
 
 3. Go to **Account&Settings** in dashboard. Click on **API keys**
 
-    <img src="./Capture1.PNG" alt="Alt Text" width="700" height="400">
+    <img src="./razorpay-dashboard.PNG" alt="razorpay-dashboard" width="700" height="400">
 
 4. Click on **Regenerate Test Key**
 
-    <img src="./Capture2.PNG" alt="Alt Text" width="700" height="400">
+    <img src="./razorpay-apikey-generation.PNG" alt="razorpay-apikey-generation" width="700" height="400">
 
 5. Copy both the credentials (**Key Id and Key Secret**)
 
-    <img src="./Capture3.PNG" alt="Alt Text" width="700" height="400">
+    <img src="./razorpay-apikey-credentials.PNG" alt="razorpay-apikey-credentials" width="700" height="400">
 
 6. To use these credentials, save them in a **.env** file. First, install the **dotenv** package and then store the credentials there.
 
     ```
     npm i dotenv
     ```
-    <img src="./Capture4.PNG" alt="Alt Text" width="700" height="400">
+    <img src="./dotenv-file-storing-credentials.PNG" alt="dotenv-file-storing-credentials" width="700" height="400">
 
 
 ### Step 4 : Import and Setup Razorpay
@@ -142,7 +155,7 @@ Let's break this down step by step:
 
     a. Create **index.ejs** file in **views** folder
     
-    <img src="./Capture6.PNG" alt="Alt Text" height="200">
+    <img src="./folder-structure.PNG" alt="folder-structure" height="200">
 
     b. Set up EJS Template Engine and render in **app.js** 
 
@@ -471,19 +484,25 @@ e. **Integrate Callback Function:**
     
 ```
 
-
 ## DEMO SCREENSHOTS
 
-<img src="./Capture7.PNG" alt="Alt Text" width="600" />
-<img src="./Capture8.PNG" alt="Alt Text" width="600" />
-<img src="./Capture9.PNG" alt="Alt Text" width="600" />
-<img src="./Capture10.PNG" alt="Alt Text" width="600" />
-<img src="./Capture11.PNG" alt="Alt Text" width="600" />
-<img src="./Capture12.PNG" alt="Alt Text" width="600" />
-<img src="./Capture13.PNG" alt="Alt Text" width="600" />
-<img src="./Capture14.PNG" alt="Alt Text" width="600" />
-<img src="./Capture15.PNG" alt="Alt Text" width="600" />   
+<img src="./razorpay-integration-demo1.PNG" alt="razorpay-integration-demo1" width="600" />
+<img src="./razorpay-integration-demo2.PNG" alt="razorpay-integration-demo2" width="600" />
+<img src="./razorpay-integration-demo3.PNG" alt="razorpay-integration-demo3" width="600" />
+<img src="./razorpay-integration-demo4.PNG" alt="razorpay-integration-demo4" width="600" />
+<img src="./razorpay-integration-demo5.PNG" alt="razorpay-integration-demo5" width="600" />
+<img src="./razorpay-integration-demo6.PNG" alt="razorpay-integration-demo6" width="600" />
+<img src="./razorpay-integration-demo7.PNG" alt="razorpay-integration-demo7" width="600" />
+<img src="./razorpay-integration-demo8.PNG" alt="razorpay-integration-demo8" width="600" />
+<img src="./razorpay-integration-demo9.PNG" alt="razorpay-integration-demo9" width="600" />   
 
 
 ## Implementation (refer GitHub Repo)
 [GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/razorpay-integration/implementation)
+
+## References and Resources
+
+- [Razorpay Documentation](https://razorpay.com/docs/#home-payments)
+- [NodeJS Official Documentation](https://nodejs.org/docs/latest/api/)
+- [Express Documentation](https://expressjs.com/)
+- [EJS Documentation](https://github.com/mde/ejs/wiki/Using-EJS-with-Express)

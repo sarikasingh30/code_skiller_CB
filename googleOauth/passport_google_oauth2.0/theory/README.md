@@ -20,7 +20,8 @@ Google OAuth Integration is a powerful feature that enables users to authenticat
 4. **Data Fetching:** The app uses the token to retrieve user data securely.
 5. **Authentication Completion:** The app verifies data, updates the database, and starts a user session.
 
-## Prerequisites 
+## Prerequisites
+ 
 1. **Node.js Basics** - Basic understanding of Node.js and its asynchronous programming model.
 2. **Express.js Fundamentals** - Familiarity with creating servers and managing routes using Express.js.
 3. **Working with MongoDB** - Knowledge of MongoDB and connecting to it with Mongoose.
@@ -43,6 +44,8 @@ Google OAuth Integration is a powerful feature that enables users to authenticat
 
 ## Steps for Google OAuth Integration
 We will use Node.js and Google API to enable secure user authentication and data access through Google OAuth.
+### Folder Structure : 
+<img src="./google-oauth-integration-folder-structure.PNG" alt="google-oauth-integration-folder-structure" height="300" />
 
 ### Step 1 : Setup a basic Node.js App
 
@@ -95,38 +98,38 @@ SECRET_KEY=""
 1. Visit the **Google Developer Console**.
 2. Create a new project or select an existing one.
 
-    <img src="./google-console-creating-new-project.PNG" alt="creating new project on google console" width="700">
+    <img src="./google-console-creating-new-project.PNG" alt="creating new project on google console" width="700" />
 
 
 3. Enable the Google+ API or Google Identity Platform for your project.
 
-    <img src="./google-console-dashboard.PNG" alt="google console dashboard" width="700">
+    <img src="./google-console-dashboard.PNG" alt="google console dashboard" width="700" />
 
 
 4. Set up OAuth 2.0 credentials:
 
-    <img src="./google-oauth-consent-screen.PNG" alt="google console oauth consent screen" width="700" >
+    <img src="./google-oauth-consent-screen.PNG" alt="google console oauth consent screen" width="700" />
 
-    <img src="./google-oauth-consent-screen-app-info.PNG" alt="google console oauth consent screen app info" width="700">
+    <img src="./google-oauth-consent-screen-app-info.PNG" alt="google console oauth consent screen app info" width="700" />
 
 
 5. Go to the Credentials tab. Click on Create Credentials → OAuth 2.0 Client IDs.
 
-    <img src="./google-console-create-credentials-oauth-clientID.PNG" alt="google console create credentials" width="700">
+    <img src="./google-console-create-credentials-oauth-clientID.PNG" alt="google console create credentials" width="700" />
 
 6. Click on **Application type** and choose **Web application**
 
-    <img src="./google-console-create-oauth-clientId-app-info.PNG" alt="google console create credentials clientId app info" width="700">
+    <img src="./google-console-create-oauth-clientId-app-info.PNG" alt="google console create credentials clientId app info" width="700"/>
 
 
 7. Set the Authorized redirect URIs (OAuth Redirect URIs)
     (e.g., http://localhost:3030/login/google and http://localhost:3000/login/auth/google/callback for local development).
 
-    <img src="./google-console-oauth-clientId-redirectURL.PNG" alt="google console oauth clientId redirectURLs" width="700">
+    <img src="./google-console-oauth-clientId-redirectURL.PNG" alt="google console oauth clientId redirectURLs" width="700" />
 
 8. Note down the **Client ID** and **Client Secret**. These will be used in the OAuth flow.
 
-    <img src="./google-console-oauth-client-created.PNG" alt="google console oauth client created" width="700">
+    <img src="./google-console-oauth-client-created.PNG" alt="google console oauth client created" width="700" />
 
 9. To use these credentials, save them in a **.env** file.
 
@@ -574,6 +577,8 @@ app.get("/logout", (req, res, next) => {
 - [Passport strategy for Google OAuth 2.0](https://www.passportjs.org/packages/passport-google-oauth2/)
 - [NodeJS Official Documentation](https://nodejs.org/docs/latest/api/)
 - [Express Documentation](https://expressjs.com/)
+- [EJS Documentation](https://github.com/mde/ejs/wiki/Using-EJS-with-Express)
 - [Mongoose Official Documentation](https://mongoosejs.com/docs/)
 - [Express-Session npm package documentation](https://www.npmjs.com/package/express-session)
 - [Connect-Mongo npm package documentation](https://www.npmjs.com/package/connect-mongo)
+
