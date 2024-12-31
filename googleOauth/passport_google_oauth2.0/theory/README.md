@@ -20,6 +20,13 @@ Google OAuth Integration is a powerful feature that enables users to authenticat
 4. **Data Fetching:** The app uses the token to retrieve user data securely.
 5. **Authentication Completion:** The app verifies data, updates the database, and starts a user session.
 
+## Prerequisites 
+1. **Node.js Basics** - Basic understanding of Node.js and its asynchronous programming model.
+2. **Express.js Fundamentals** - Familiarity with creating servers and managing routes using Express.js.
+3. **Working with MongoDB** - Knowledge of MongoDB and connecting to it with Mongoose.
+4. **HTML and EJS** - Ability to create and render HTML templates using EJS.
+5. **Authentication Concepts** - Understanding of user authentication and session management.
+
 ## Role of Passport in Google OAuth Integration
  Passport.js Integration simplifies the process of implementing OAuth in Node.js applications. By using Passport.js(**popular Node.js middleware**), developers can integrate Google OAuth seamlessly, handling the authentication flow and managing user sessions with minimal effort. With Passport, you don’t need to handle the complex details of the OAuth protocol. 
 
@@ -33,13 +40,6 @@ Google OAuth Integration is a powerful feature that enables users to authenticat
  - **Integration**: 
     - The *passport.use()* method registers the Google OAuth strategy.
     - *passport.serializeUser()* and *passport.deserializeUser()* are used to manage user data in sessions effectively.
-
-## Prerequisites 
-1. **Node.js Basics** - Basic understanding of Node.js and its asynchronous programming model.
-2. **Express.js Fundamentals** - Familiarity with creating servers and managing routes using Express.js.
-3. **Working with MongoDB** - Knowledge of MongoDB and connecting to it with Mongoose.
-4. **HTML and EJS** - Ability to create and render HTML templates using EJS.
-5. **Authentication Concepts** - Understanding of user authentication and session management.
 
 ## Steps for Google OAuth Integration
 We will use Node.js and Google API to enable secure user authentication and data access through Google OAuth.
@@ -336,6 +336,7 @@ module.exports=mongoose.model("user", userSchema)
     // add the above lines below the session configured
 ```
 
+**CODE:** 
  ```
     // File : /auth/passport.js
     const passport = require("passport")     
