@@ -483,6 +483,47 @@ e. **Integrate Callback Function:**
     </script>
     
 ```
+#### Step 6 : Testing and Debugging
+
+1. **Check if Environment Variables are Loaded** : First, ensure that dotenv is properly loading your environment variables. You can print the values of critical environment variables to confirm they are available.
+
+    ```
+    // File : /app.js
+    
+    if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+        console.error("Error: Missing essential environment variables.");
+        process.exit(1);  // Exit the application if environment variables are missing
+    } 
+    else {
+        console.log("Environment variables are loaded correctly.");
+    }  
+    ```
+
+2. **Handling 404 Errors (Page Not Found)** : For routes that don’t exist, send a 404 response to indicate the resource isn’t found.
+    ```
+    // File : /app.js
+
+    // Handling 404 Errors (Page Not Found)
+    app.use((req, res, next) => {
+        res.status(404).json({ error: 'Page not found' });
+    });
+    ```
+
+3. **Basic Error-Handling Middleware** : Set up a basic error-handling middleware that catches all errors and sends a response to the user.
+
+    ```
+    // File : /app.js
+
+    // General error handling middleware
+    app.use((err, req, res, next) => {
+        console.error(err)       // Optionally log the error for debugging
+        res.status(500).json({ error: 'Something went wrong!' })
+    })
+    ```
+    
+4. **Return Meaningful Error Messages** : If there’s an error, provide a user-friendly message without exposing sensitive information.
+
+
 
 ## DEMO SCREENSHOTS
 

@@ -541,7 +541,21 @@ app.get("/logout", (req, res, next) => {
 
 ### Step 15 : Testing and Debugging
 
-1. **Handling 404 Errors (Page Not Found)** : For routes that don’t exist, send a 404 response to indicate the resource isn’t found.
+1. **Check if Environment Variables are Loaded** : First, ensure that dotenv is properly loading your environment variables. You can print the values of critical environment variables to confirm they are available.
+
+    ```
+    // File : /app.js
+    
+    if (!process.env.SECRET_KEY || !process.env.MONGO_URL) {
+        console.error("Error: Missing essential environment variables.");
+        process.exit(1);  // Exit the application if environment variables are missing
+    } 
+    else {
+        console.log("Environment variables are loaded correctly.");
+    }  
+    ```
+
+2. **Handling 404 Errors (Page Not Found)** : For routes that don’t exist, send a 404 response to indicate the resource isn’t found.
     ```
     // File : /app.js
 
@@ -551,7 +565,7 @@ app.get("/logout", (req, res, next) => {
     });
     ```
 
-2. **Basic Error-Handling Middleware** : Set up a basic error-handling middleware that catches all errors and sends a response to the user.
+3. **Basic Error-Handling Middleware** : Set up a basic error-handling middleware that catches all errors and sends a response to the user.
 
     ```
     // File : /app.js
@@ -562,9 +576,10 @@ app.get("/logout", (req, res, next) => {
         res.status(500).json({ error: 'Something went wrong!' })
     })
     ```
-3. **Simple Try-Catch for Async Functions** : Wrap asynchronous code inside a try-catch block to handle any unexpected errors.
+
+4. **Simple Try-Catch for Async Functions** : Wrap asynchronous code inside a try-catch block to handle any unexpected errors.
  
-4. **Return Meaningful Error Messages** : If there’s an error, provide a user-friendly message without exposing sensitive information.
+5. **Return Meaningful Error Messages** : If there’s an error, provide a user-friendly message without exposing sensitive information.
 
 ## Implementation (refer GitHub Repo)
 [GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/googleOauth/passport_google_oauth2.0/implementation)

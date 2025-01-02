@@ -2,6 +2,10 @@ const passport = require("passport")
 const User = require("../models/user")
 const dotEnv = require("dotenv")
 dotEnv.config()
+if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+    console.error("Error: Missing essential environment variables.");
+    process.exit(1);  // Exit the application if environment variables are missing
+} 
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 

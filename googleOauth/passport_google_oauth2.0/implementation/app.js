@@ -9,6 +9,13 @@ const profileHandler = require("./routes/profile")
 const loginHandler = require("./routes/login")
 const PORT = 3030
 dotEnv.config()
+if (!process.env.SECRET_KEY || !process.env.MONGO_URL) {
+    console.error("Error: Missing essential environment variables.");
+    process.exit(1);  // Exit the application if environment variables are missing
+}
+else {
+    console.log("Environment variables are loaded correctly.");
+}
 app.set('view engine', 'ejs');
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
