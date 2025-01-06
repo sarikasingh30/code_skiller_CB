@@ -599,6 +599,7 @@ Google OAuth allows users to authenticate and log into applications using their 
 
 ## References and Resources
 
+### Links 
 - [Introduction to OAuth 2.0](https://cloud.google.com/apigee/docs/api-platform/security/oauth/oauth-introduction)
 - [Setting up OAuth 2.0](https://support.google.com/cloud/answer/6158849?hl=en)
 - [passport.js official documentation](https://www.passportjs.org/)
@@ -609,4 +610,28 @@ Google OAuth allows users to authenticate and log into applications using their 
 - [Mongoose Official Documentation](https://mongoosejs.com/docs/)
 - [Express-Session npm package documentation](https://www.npmjs.com/package/express-session)
 - [Connect-Mongo npm package documentation](https://www.npmjs.com/package/connect-mongo)
+
+### FAQs (Frequently Asked Questions)
+
+1. **What permissions (scopes) should I request from users?**
+
+    Request only the necessary permissions that your app needs. For example, if you need access to the user's basic profile, request the profile and email scopes.
+
+2. **What is the difference between access tokens and refresh tokens?**
+
+    Access tokens are short-lived tokens used to authenticate API requests, while refresh tokens are long-lived and can be used to get new access tokens when the old ones expire.
+3. **Can I use Google OAuth without a Google Developer Console account?**
+
+    No, you must have a Google Developer Console account to register your application and obtain the required OAuth credentials.
+4. **How do I handle expired tokens?**
+
+    You can refresh expired access tokens using the refresh token to continue the user's session without requiring them to log in again.
+5. **What security measures should I take when implementing OAuth?**
+
+    Use HTTPS for all API calls and redirect URLs, store tokens securely, and limit the scopes to the minimum required by your app.
+6. **How can I debug issues with OAuth integration?**
+
+    Check for correct redirect URIs, ensure proper scopes are set, review error messages from Google, and use browser developer tools to inspect network requests.
+
+--- 
 

@@ -554,7 +554,44 @@ Razorpay is a versatile payment gateway enabling businesses to securely accept p
 
 ## References and Resources
 
+### Links 
 - [Razorpay Documentation](https://razorpay.com/docs/#home-payments)
 - [NodeJS Official Documentation](https://nodejs.org/docs/latest/api/)
 - [Express Documentation](https://expressjs.com/)
 - [EJS Documentation](https://github.com/mde/ejs/wiki/Using-EJS-with-Express)
+
+### FAQs (Frequently Asked Questions)
+
+1. **What fees does Razorpay charge?**
+
+    Razorpay charges a small transaction fee for each successful payment, with rates varying based on payment methods (cards, UPI, wallets).
+
+2. **Is Razorpay secure?**
+
+    Yes, Razorpay is PCI DSS compliant and uses encryption to ensure secure transactions.
+
+3. **Can I issue refunds through Razorpay?**
+
+    Yes, Razorpay allows businesses to issue full or partial refunds directly through the dashboard or API.
+
+4. **What payment methods does Razorpay support?**
+
+    Razorpay supports a wide range of payment methods including UPI, credit/debit cards, wallets, net banking, and international payments.
+
+5. **How do I manage subscriptions with Razorpay?**
+
+    Razorpay offers a subscription feature that allows businesses to manage recurring billing and payments automatically.
+
+6. **Can I track payments in real time?**
+
+    Yes, you can track your payments and transactions in real-time through Razorpay's dashboard or API.
+
+7. **What should I do if I face an issue with payments?**
+
+    You can contact Razorpay's support team through email, live chat, or the support section on their website.
+
+8. **Does Razorpay offer mobile SDKs?**
+
+    Yes, Razorpay provides mobile SDKs for both Android and iOS, allowing seamless integration of payment gateways in mobile apps.
+
+--- 
