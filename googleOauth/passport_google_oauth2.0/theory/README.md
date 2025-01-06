@@ -98,38 +98,38 @@ SECRET_KEY=""
 1. Visit the **Google Developer Console**.
 2. Create a new project or select an existing one.
 
-    <img src="./google-console-creating-new-project.PNG" alt="creating new project on google console" width="700" />
+    <img src="./google-console-creating-new-project.PNG" alt="creating new project on google console" width="70%" />
 
 
 3. Enable the Google+ API or Google Identity Platform for your project.
 
-    <img src="./google-console-dashboard.PNG" alt="google console dashboard" width="700" />
+    <img src="./google-console-dashboard.PNG" alt="google console dashboard" width="70%" />
 
 
 4. Set up OAuth 2.0 credentials:
 
-    <img src="./google-oauth-consent-screen.PNG" alt="google console oauth consent screen" width="700" />
+    <img src="./google-oauth-consent-screen.PNG" alt="google console oauth consent screen" width="70%" />
 
-    <img src="./google-oauth-consent-screen-app-info.PNG" alt="google console oauth consent screen app info" width="700" />
+    <img src="./google-oauth-consent-screen-app-info.PNG" alt="google console oauth consent screen app info" width="70%" />
 
 
 5. Go to the Credentials tab. Click on Create Credentials → OAuth 2.0 Client IDs.
 
-    <img src="./google-console-create-credentials-oauth-clientID.PNG" alt="google console create credentials" width="700" />
+    <img src="./google-console-create-credentials-oauth-clientID.PNG" alt="google console create credentials" width="70%" />
 
 6. Click on **Application type** and choose **Web application**
 
-    <img src="./google-console-create-oauth-clientId-app-info.PNG" alt="google console create credentials clientId app info" width="700"/>
+    <img src="./google-console-create-oauth-clientId-app-info.PNG" alt="google console create credentials clientId app info" width="70%"/>
 
 
 7. Set the Authorized redirect URIs (OAuth Redirect URIs)
     (e.g., http://localhost:3030/login/google and http://localhost:3000/login/auth/google/callback for local development).
 
-    <img src="./google-console-oauth-clientId-redirectURL.PNG" alt="google console oauth clientId redirectURLs" width="700" />
+    <img src="./google-console-oauth-clientId-redirectURL.PNG" alt="google console oauth clientId redirectURLs" width="70%" />
 
 8. Note down the **Client ID** and **Client Secret**. These will be used in the OAuth flow.
 
-    <img src="./google-console-oauth-client-created.PNG" alt="google console oauth client created" width="700" />
+    <img src="./google-console-oauth-client-created.PNG" alt="google console oauth client created" width="70%" />
 
 9. To use these credentials, save them in a **.env** file.
 

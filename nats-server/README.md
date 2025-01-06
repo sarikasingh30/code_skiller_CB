@@ -4,6 +4,8 @@ The NATS socket architecture is the foundation of its lightweight and high-perfo
 ## What is NATS?
 NATS is an advanced messaging technology crafted to address the intricate communication demands of modern applications. Its design ensures flexibility, security, and high performance, making it a powerful solution for diverse, interconnected ecosystems.
 
+  <img src="./nats-server.png" alt="nats-server" width="400" />
+
 ## Key Capabilities:
 **Seamless Connectivity Across Platforms**
 
@@ -151,7 +153,7 @@ In addition to TCP sockets, NATS supports WebSocket connections, enabling browse
         - **Integrity** : Ensures data is not altered during transmission.
         - **Compliance** : Meets security standards required by industries like finance and healthcare.
 
-## Summary
+## Conclusion 
 The NATS socket architecture is designed for:
 - **Speed** : Lightweight protocol and non-blocking I/O.
 - **Scalability** : Efficient multiplexing of connections.
@@ -160,3 +162,6 @@ The NATS socket architecture is designed for:
 ## References and Resources
 
 - [NATS Documentation](https://nats.io/about/)
+
+--- 
+

@@ -38,7 +38,7 @@ To integrate the Razorpay payment gateway into a Node.js application, we will us
 
 ## Flowchart of servers-frontend communication
 
-<img src="./servers-client-workflow.PNG" alt="servers-client-workflow" width="800" height="400">
+<img src="./servers-client-workflow.PNG" alt="servers-client-workflow" width="70%" />
 
 
 ## Steps to integrate Razorpay with Node
@@ -98,22 +98,22 @@ To access Razorpay APIs, you need API keys.
 
 3. Go to **Account&Settings** in dashboard. Click on **API keys**
 
-    <img src="./razorpay-dashboard.PNG" alt="razorpay-dashboard" width="700" height="400">
+    <img src="./razorpay-dashboard.PNG" alt="razorpay-dashboard" width="70%"/>
 
 4. Click on **Regenerate Test Key**
 
-    <img src="./razorpay-apikey-generation.PNG" alt="razorpay-apikey-generation" width="700" height="400">
+    <img src="./razorpay-apikey-generation.PNG" alt="razorpay-apikey-generation" width="70%" />
 
 5. Copy both the credentials (**Key Id and Key Secret**)
 
-    <img src="./razorpay-apikey-credentials.PNG" alt="razorpay-apikey-credentials" width="700" height="400">
+    <img src="./razorpay-apikey-credentials.PNG" alt="razorpay-apikey-credentials" width="70%" />
 
 6. To use these credentials, save them in a **.env** file. First, install the **dotenv** package and then store the credentials there.
 
     ```
     npm i dotenv
     ```
-    <img src="./dotenv-file-storing-credentials.PNG" alt="dotenv-file-storing-credentials" width="700" height="400">
+    <img src="./dotenv-file-storing-credentials.PNG" alt="dotenv-file-storing-credentials" width="70%" />
 
 
 ### Step 4 : Import and Setup Razorpay
@@ -527,15 +527,15 @@ e. **Integrate Callback Function:**
 
 ## DEMO SCREENSHOTS
 
-<img src="./razorpay-integration-demo1.PNG" alt="razorpay-integration-demo1" width="600" />
-<img src="./razorpay-integration-demo2.PNG" alt="razorpay-integration-demo2" width="600" />
-<img src="./razorpay-integration-demo3.PNG" alt="razorpay-integration-demo3" width="600" />
-<img src="./razorpay-integration-demo4.PNG" alt="razorpay-integration-demo4" width="600" />
-<img src="./razorpay-integration-demo5.PNG" alt="razorpay-integration-demo5" width="600" />
-<img src="./razorpay-integration-demo6.PNG" alt="razorpay-integration-demo6" width="600" />
-<img src="./razorpay-integration-demo7.PNG" alt="razorpay-integration-demo7" width="600" />
-<img src="./razorpay-integration-demo8.PNG" alt="razorpay-integration-demo8" width="600" />
-<img src="./razorpay-integration-demo9.PNG" alt="razorpay-integration-demo9" width="600" />   
+<img src="./razorpay-integration-demo1.PNG" alt="razorpay-integration-demo1" width="70%" />
+<img src="./razorpay-integration-demo2.PNG" alt="razorpay-integration-demo2" width="70%" />
+<img src="./razorpay-integration-demo3.PNG" alt="razorpay-integration-demo3" width="70%" />
+<img src="./razorpay-integration-demo4.PNG" alt="razorpay-integration-demo4" width="70%" />
+<img src="./razorpay-integration-demo5.PNG" alt="razorpay-integration-demo5" width="70%" />
+<img src="./razorpay-integration-demo6.PNG" alt="razorpay-integration-demo6" width="70%" />
+<img src="./razorpay-integration-demo7.PNG" alt="razorpay-integration-demo7" width="70%" />
+<img src="./razorpay-integration-demo8.PNG" alt="razorpay-integration-demo8" width="70%" />
+<img src="./razorpay-integration-demo9.PNG" alt="razorpay-integration-demo9" width="70%" />   
 
 
 ## Implementation (refer GitHub Repo)
