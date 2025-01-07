@@ -3,3 +3,5 @@
 
 /razorpay-integration/implementation/.env
 /razorpay-integration/implementation/node_modules
+/nats-server/implementation/nats-publisher/node_modules
+/nats-server/implementation/nats-subscriber/node_modules
