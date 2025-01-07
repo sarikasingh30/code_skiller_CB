@@ -152,6 +152,8 @@ In addition to TCP sockets, NATS supports WebSocket connections, enabling browse
         - It meets security standards required by industries like finance and healthcare.
 
 ## Using NATS for Microservices Communication
+Microservices (Microservices Architecture) is a software design approach where an application is built as a collection of small, independent, and loosely coupled services. Each service in a microservices architecture focuses on a specific business capability and operates as an independent module that can be developed, deployed, and scaled separately.
+
 Microservices communication with NATS involves using NATS as a messaging system to facilitate communication between different microservices in a distributed application architecture.
 
 ## Why Use NATS for Microservices Communication?
@@ -387,6 +389,6 @@ NATS provides several key advantages that make it an ideal choice for microservi
 3. **What happens if a client disconnects unexpectedly from the NATS server?**
 
     The server detects the disconnection, closes the socket, and cleans up resources. The client library automatically attempts to reconnect.
-    
+
 --- 
 
