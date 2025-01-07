@@ -370,8 +370,23 @@ NATS provides several key advantages that make it an ideal choice for microservi
 
 ## References and Resources
 
+### Links
 - [NATS Documentation](https://nats.io/about/)
 - [Download NATS-Server](https://github.com/nats-io/nats-server/releases/tag/v2.10.24)
 
+
+### FAQs (Frequently Asked Questions)
+1. **Can NATS support WebSocket-based communication?**
+    
+    Yes, NATS supports WebSocket connections for browser-based clients, enabling real-time communication over HTTP-friendly protocols.
+
+2. **How does NATS handle message routing for multiple subscribers?**
+    
+    The server maintains a subject-to-subscriber map, ensuring messages are routed only to relevant subscribers.
+
+3. **What happens if a client disconnects unexpectedly from the NATS server?**
+
+    The server detects the disconnection, closes the socket, and cleans up resources. The client library automatically attempts to reconnect.
+    
 --- 
 
