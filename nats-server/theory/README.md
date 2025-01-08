@@ -3,12 +3,12 @@ The NATS socket architecture is the foundation of its lightweight and high-perfo
 
 <img src="./nats.png" alt="nats-server" width="80%" />
 
-## What is NATS?
+##  What is NATS and Why It’s Essential for Modern Messaging ?
 NATS is an advanced messaging technology crafted to address the intricate communication demands of modern applications. Its design ensures flexibility, security, and high performance, making it a powerful solution for diverse, interconnected ecosystems.
 
   <img src="./nats-server.png" alt="nats-server" width="80%" />
 
-## Key Capabilities:
+### Key Capabilities:
 
 **Seamless Connectivity Across Platforms** : 
 
@@ -23,14 +23,14 @@ NATS is an advanced messaging technology crafted to address the intricate commun
 1. It consists of a family of tightly integrated tools.
 2. Tools can function independently or as a unified system.
 
-## What Are Sockets?
+### What Are Sockets?
 Sockets are endpoints for sending or receiving data between two systems over a network. 
 In NATS, sockets are used for communication between:
 
 - Clients (publishers or subscribers)
 - The NATS server
 
-## NATS Communication Model
+### NATS Communication Model
 At a high level, NATS uses a **publish/subscribe messaging model**, and the socket architecture ensures efficient data transfer.
 
 **Components** :
@@ -43,7 +43,7 @@ At a high level, NATS uses a **publish/subscribe messaging model**, and the sock
 - Enable the server to multiplex many client connections.
 - Efficiently handle message routing and delivery.
 
-## How Sockets Work in NATS ?
+### How Sockets Work in NATS ?
 **Connection Establishment** =>
 Connection establishment is the process of creating a persistent communication channel between a NATS client (publisher or subscriber) and the NATS server. This step is crucial to facilitate real-time data exchange between the client and the server.
 1. **Client Initiates Connection** :
@@ -61,15 +61,15 @@ The server accepts the client connection and establishes a persistent socket for
     - When a message for the subject arrives, the server pushes it to the subscriber’s socket.
 
 
-## NATS Protocol
+### NATS Protocol
 The NATS Protocol is a lightweight, text-based protocol designed to facilitate efficient communication between clients and the NATS server. It uses sockets as the underlying transport layer, ensuring high-speed, low-latency messaging suitable for distributed systems.
 
-##  WebSocket Support in NATS
+###  WebSocket Support in NATS
 In addition to TCP sockets, NATS supports WebSocket connections, enabling browser-based clients to communicate with the NATS server.
 - They enables real-time communication over HTTP-friendly protocols.
 - They are useful for web-based applications like dashboards, chats, or notifications.
 
-## NATS Socket Workflow
+### NATS Socket Workflow
 1. **Connection** :
 - Connection establishes the foundation for message exchange by creating a direct communication channel.
 - A client begins by creating a connection to the NATS server. This can be done using either:
@@ -106,7 +106,7 @@ In addition to TCP sockets, NATS supports WebSocket connections, enabling browse
 - The server closes the corresponding socket and cleans up resources.
 - If a disconnection happens unexpectedly (e.g., due to network issues or a timeout), the server detects this and closes the socket.
 
-## Key Features of NATS Socket Architecture
+### Key Features of NATS Socket Architecture
 
 1.  **Event-Driven I/O** : 
     - NATS employs an event-driven model to manage socket operations. Instead of blocking threads while waiting for socket events (e.g., data arrival or connection closure), it uses an event loop to handle these events asynchronously.
@@ -153,12 +153,13 @@ In addition to TCP sockets, NATS supports WebSocket connections, enabling browse
         - It ensures data is not altered during transmission.
         - It meets security standards required by industries like finance and healthcare.
 
-## Using NATS for Microservices Communication
+##  How NATS Simplifies Microservices Communication for Scalability ?
+
 Microservices (Microservices Architecture) is a software design approach where an application is built as a collection of small, independent, and loosely coupled services. Each service in a microservices architecture focuses on a specific business capability and operates as an independent module that can be developed, deployed, and scaled separately.
 
 Microservices communication with NATS involves using NATS as a messaging system to facilitate communication between different microservices in a distributed application architecture.
 
-## Why Use NATS for Microservices Communication?
+### Why Use NATS for Microservices Communication?
 - *Low Latency* : Latency refers to the time taken for a message to travel from the sender to the receiver and NATS provides low-latency communication, which is crucial for real-time applications.
 
 - *High Throughput* : Throughput is the number of messages that can be processed or delivered within a specific time frame and NATS can handle high volumes of messages efficiently.
@@ -169,7 +170,7 @@ Microservices communication with NATS involves using NATS as a messaging system 
 
 - *Simplicity* : Simplicity refers to the ease of setup, configuration, and maintenance of a system and NATS is easy to set up and use, reducing the complexity of inter-service communication.
 
-## Example - Order Processing System
+### Example - Order Processing System
 
 - An order processing system with two microservices: 
     - Order Service (Publisher) and 
@@ -380,6 +381,7 @@ NATS provides several key advantages that make it an ideal choice for microservi
 
 
 ### FAQs (Frequently Asked Questions)
+
 1. **Can NATS support WebSocket-based communication?**
     
     Yes, NATS supports WebSocket connections for browser-based clients, enabling real-time communication over HTTP-friendly protocols.
@@ -390,7 +392,19 @@ NATS provides several key advantages that make it an ideal choice for microservi
 
 3. **What happens if a client disconnects unexpectedly from the NATS server?**
 
-    The server detects the disconnection, closes the socket, and cleans up resources. The client library automatically attempts to reconnect.
+    When the server detects the disconnection, it closes the socket, and cleans up resources. The client library automatically attempts to reconnect.
+
+4. **How can I monitor the status of the NATS server?**
+
+    You can use the monitoring endpoint (http://localhost:8222) to access the server's dashboard.
+
+5. **What are the common errors during setup, and how can I resolve them?**
+    
+    Errors include incorrect PATH configuration or misconfigured client connections. Check server and client configurations may resolves them.
+
+6. **How do I test NATS Publisher and Subscriber implementations?**
+
+    Start the subscriber service, then publish a message using the publisher. Verify that the subscriber receives the message correctly.
 
 --- 
 
