@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Checkout Products</title>
+  <link rel="stylesheet" href="checkout.css">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+  <h1>YOUR CART ...</h1>
+  <section>
+    <div class="products">
+      <!-- Product 1 -->
+      <div class="product">
+        <div>
+          <img
+            src="https://d1xv5jidmf7h0f.cloudfront.net/circleone/images/products_gallery_images/Custom-Printed-T-Shirt-Round-Neck.jpg"
+            alt="T-shirt" />
+
+        </div>
+        <div class="description">
+          <h3>T-Shirt</h3>
+          <p>A comfortable cotton t-shirt</p>
+          <p><strong>$20.00</strong></p>
+          <p>Quantity: 1</p>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product">
+        <div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_UjZMmVcOiKnb8Lzbu907WTnqCA7Tmg13nw&s"
+          alt="Coffee Mug" />
+        </div>
+        <div class="description">
+          <h3>Coffee Mug</h3>
+          <p>A stylish ceramic coffee mug</p>
+          <p><strong>$15.00</strong></p>
+          <p>Quantity: 2</p>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product">
+        <div><img
+          src="https://www.thestylesalad.in/cdn/shop/products/him1_1024x1024_2x_77d00e04-776a-4c99-83e2-0070925df8f4.jpg?v=1542106281"
+          alt="Notebook" /></div>
+        <div class="description">
+          <h3>Notebook</h3>
+          <p>A handy notebook for daily use</p>
+          <p><strong>$8.00</strong></p>
+          <p>Quantity: 3</p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+   <!-- Checkout Button -->
+   <form id="checkout-form">
+    <button type="button" id="checkout-button">Checkout</button>
+  </form>
+
+  <script>
+    const stripe = Stripe('<%= publishKey%>'); // Replace with your publishable key
+
+    document.getElementById('checkout-button').addEventListener('click', async () => {
+      // Define products
+      const items = [
+        { name: 'T-shirt', price: 2000, quantity: 1, image: 'https://d1xv5jidmf7h0f.cloudfront.net/circleone/images/products_gallery_images/Custom-Printed-T-Shirt-Round-Neck.jpg' },
+        { name: 'Coffee Mug', price: 1500, quantity: 2, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_UjZMmVcOiKnb8Lzbu907WTnqCA7Tmg13nw&s' },
+        { name: 'Notebook', price: 800, quantity: 3, image: 'https://www.thestylesalad.in/cdn/shop/products/him1_1024x1024_2x_77d00e04-776a-4c99-83e2-0070925df8f4.jpg?v=1542106281' },
+      ];
+
+      // Create checkout session
+      const response = await fetch('/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items })
+      });
+      const { url } = await response.json();
+      window.location = url; // Redirect to Stripe Checkout
+    });
+  </script>
+</body>
+
+</html>
