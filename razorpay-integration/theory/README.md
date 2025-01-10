@@ -157,7 +157,7 @@ Let's break this down step by step:
     
     <img src="./folder-structure.PNG" alt="folder-structure" height="200">
 
-    b. Set up EJS Template Engine and render in **app.js** 
+    b. Set up and render EJS Template Engine in **app.js** 
 
     ```
     const express=require("express")
