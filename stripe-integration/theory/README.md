@@ -156,7 +156,7 @@ Once signed up, we’ll have access to the Stripe Dashboard, where we can manage
         })
     ```
 
-3. **Create *views* folder and make *checkout.ejs* file in it**
+3. **Create a folder named *views* and within it, add a file named *checkout.ejs*.**
 
     **Folder Structure** : 
 
@@ -166,13 +166,14 @@ Once signed up, we’ll have access to the Stripe Dashboard, where we can manage
 
     ```
         // File : /views/checkout.ejs
+        // add css accordingly
         <html>
             <head>
                 <title>Checkout Products</title>
-                <link rel="stylesheet" href="checkout.css">
+                    <link rel="stylesheet" href="checkout.css">
 
-                // below tag allows any newly created Stripe objects to be globally accessible in code
-                <script src="https://js.stripe.com/v3/"></script>
+                    // below tag allows any newly created Stripe objects to be globally accessible in code
+                    <script src="https://js.stripe.com/v3/"></script>   
             </head>
             <body>
                 <h1>YOUR CART ...</h1>
@@ -197,4 +198,244 @@ Once signed up, we’ll have access to the Stripe Dashboard, where we can manage
                 </form>
             </body>
         </html>
+            
     ```
+4. **Create GET route for success page and cancel page in *app.js***
+
+    Specifying URLs for **success** ("/success") and **cancel** ("/cancel") pages. They’re publicly accessible so Stripe can redirect customers to them.
+
+    ```
+        // File: app.js
+        
+        app.get("/success",(req,res)=>{
+            res.render('success')
+        })
+
+        app.get("/cancel",(req,res)=>{
+            res.render('cancel')
+        })
+    ```
+
+5. **Create *Success.ejs* and *Cancel.ejs* Files in *views* folder**
+
+    **success.ejs**
+
+    ```
+        // File: /views/success.ejs
+
+        <!DOCTYPE html>
+        <html lang="en">
+
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Payment Success</title>
+                <link rel="stylesheet" href="success.css">
+            </head>
+
+            <body>
+                <section class="success-container">
+                    <div class="success-content">
+                        <h1 class="success-title">Thank You for Your Purchase!</h1>
+                        <p class="success-message">Your payment was successfully processed. We appreciate your business!
+                        </p>
+                        <div class="success-image">
+                            <img src="https://static.vecteezy.com/system/resources/previews/029/933/332/non_2x/done-green-sign-icon-for-web-and-app-check-mark-sign-stock-illustration-vector.jpg" alt="Success Image" />
+                        </div>
+                        <div class="cta-buttons">
+                            <button class="btn-home">Go Back to Homepage</button>
+                        </div>
+                    </div>
+                </section>
+            </body>
+
+        </html>
+    ```
+
+    **cancel.ejs**
+
+    ```
+        // File: /views/cancel.ejs
+
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Payment Canceled</title>
+                <link rel="stylesheet" href="cancel.css">
+            </head>
+
+            <body>
+                <section class="cancel-container">
+                    <div class="cancel-content">
+                        <h1 class="cancel-title">Oops! Payment Canceled</h1>
+                        <p class="cancel-message">
+                            We're sorry, but your payment was not completed. If you have any issues please contact us.
+                        </p>
+                        <div class="cancel-image">
+                            <img src="https://t4.ftcdn.net/jpg/00/97/60/25/360_F_97602514_zzXPWSOVVSd8Mcqxme9lWviGltDIRpMH.jpg" alt="Cancel Image" />
+                        </div>
+                        <div class="cta-buttons">
+                            <button class="btn-home">Return to Homepage</button>
+                        </div>
+                    </div>
+                </section>
+            </body>
+        </html>
+    ```
+### Step 6 : Create a Checkout Session
+
+- A Checkout Session controls what your customer sees on the payment page such as **line items**, the **order amount** and **currency**, and **acceptable payment methods**. 
+- Cards and other common payment methods are enabled for us by default. 
+- We can enable or disable payment methods directly in the Stripe Dashboard.
+- We will add an endpoint on our server **(app.js)** that creates a Checkout Session.
+
+```
+    // File : app.js
+    // import stripe also
+
+    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+    app.post('/create-checkout-session', async (req, res) => {
+        try {
+            // Map items to Stripe's line_items format
+            const lineItems = items.map(item => {
+                const productData = {
+                    name: item.name,
+                    images: [item.image],
+                };
+                // Only add the description if it exists
+                if(item.description && item.description.trim() !== ""){
+                    productData.description = item.description;
+                }
+                return {
+                    price_data: {
+                        currency: 'usd',
+                        product_data: productData,
+                        unit_amount: item.price, // Price in cents
+                    },
+                    quantity: item.quantity,
+                };
+            });
+            
+            // Create a Stripe Checkout session
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items: lineItems,
+                mode: 'payment', 
+                success_url: `http://localhost:${PORT}/success`,
+                cancel_url: `http://localhost:${PORT}/cancel`,
+            });
+
+            // Send the session URL back to the frontend
+            res.json({ url: session.url });
+        } catch (error) {
+            console.error('Error creating checkout session:', error);
+            res.status(500).send('Internal Server Error');
+        }
+    });
+
+```
+
+### Step 7 : Linking Checkout Button in *checkout.ejs* to POST Request for "/create-checkout-session"
+When our customers clicks the checkout button, they’re redirected to the Stripe-hosted payment page. For that we add script tag in the *checkout.ejs*.
+
+```
+    // File : /views/checkout.ejs
+
+    <script>
+        const stripe = Stripe('<%= publishKey%>');
+
+        document.getElementById('checkout-button').addEventListener('click', async () => {
+            // Create checkout session
+            const response = await fetch('/create-checkout-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+            });
+            const { url } = await response.json();
+            window.location = url; // Redirect to Stripe Checkout
+        });
+    </script>
+
+```
+
+### Step 8 : Run the Application
+
+1. **Start the server :**
+
+    ```
+    nodemon app
+    ```
+2. **Open `http://localhost:3030/checkout` in the browser**
+
+     <img src="./stripe-integration-checkout-page-demo.png" alt="stripe-integration-checkout-page-demo" width="90%" />
+
+3. **After clicking on the `Checkout`, we will redirect to Stripe Payment Gateway**
+
+    <img src="./stripe-payment-gateway.png" alt="stripe-payment-gateway" width="90%" />
+
+    **Important :**
+    - To simulate a successful payment for a specific card brand, use test cards from the list provided by the Stripe. [Link](https://docs.stripe.com/testing) 
+    - CVV => Any 3 digits
+    - Date => Any Future Date
+
+4. **If payment got successful, it will redirect to success page.**
+
+    <img src="./stripe-successful-payment-done.png" alt="stripe-successful-payment-done" width="90%" />
+
+5. **If payment got cancelled, it will redirect to cancel page.**
+
+    <img src="./stripe-payment-canceled.png" alt="stripe-payment-canceled" width="90%" />
+
+
+### Step 9 : Testing and Debugging
+
+1. **Test card numbers for different scenarios :**
+
+    **4242424242424242** =>	Succeeds and immediately processes the payment.
+
+    **4000000000003220** =>	Requires 3D Secure 2 authentication for a successful payment.
+
+    **4000000000009995** =>	Always fails with a decline code of insufficient_funds.
+
+2. **Handling 404 Errors (Page Not Found)** : 
+    
+    For routes that don’t exist, send a 404 response to indicate the resource isn’t found.
+
+    ```
+        // File : /app.js
+
+        // Handling 404 Errors (Page Not Found)
+        app.use((req, res, next) => {
+            res.status(404).json({ error: 'Page not found' });
+        });
+    ```
+
+3. **Basic Error-Handling Middleware** : 
+    
+    Set up a basic error-handling middleware that catches all errors and sends a response to the user.
+
+    ```
+        // File : /app.js
+
+        // General error handling middleware
+        app.use((err, req, res, next) => {
+            console.error(err)       // Optionally log the error for debugging
+            res.status(500).json({ error: 'Something went wrong!' })
+        })
+    ```
+4. **Return Meaningful Error Messages** : 
+
+    If there’s an error, provide a user-friendly message without exposing sensitive information.
+
+## Implementation (refer GitHub Repo)
+[GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/stripe-integration/implementation)
+
+## References and Resources
+
+### Links 
+- [Stripe Documentation](https://docs.stripe.com/)
+- [NodeJS Official Documentation](https://nodejs.org/docs/latest/api/)
+- [Express Documentation](https://expressjs.com/)
+- [EJS Documentation](https://github.com/mde/ejs/wiki/Using-EJS-with-Express)
