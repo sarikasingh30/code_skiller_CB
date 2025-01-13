@@ -432,6 +432,10 @@ When our customers clicks the checkout button, they’re redirected to the Strip
 ## Implementation (refer GitHub Repo)
 [GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/stripe-integration/implementation)
 
+## Conclusion 
+
+Integrating Stripe with Node.js simplifies payment processing by enabling businesses to accept various payment methods securely. The setup involves creating a basic Node.js server, configuring Stripe with API keys, and setting up routes for checkout, success, and cancel pages using EJS templates. Stripe's Checkout Session handles transactions seamlessly, while test cards facilitate debugging.This guide highlights the process step-by-step, making it accessible for businesses to incorporate Stripe efficiently.
+
 ## References and Resources
 
 ### Links 
@@ -439,3 +443,44 @@ When our customers clicks the checkout button, they’re redirected to the Strip
 - [NodeJS Official Documentation](https://nodejs.org/docs/latest/api/)
 - [Express Documentation](https://expressjs.com/)
 - [EJS Documentation](https://github.com/mde/ejs/wiki/Using-EJS-with-Express)
+
+
+## FAQs (Frequently Asked Questions)
+
+1. **What is the purpose of the .env file in Stripe integration?**
+
+    The .env file securely stores sensitive data, such as the Stripe Publishable Key and Secret Key, used in the application.
+
+2. **How do I obtain Stripe API keys?**
+    
+    Log in to your Stripe dashboard, navigate to the Developer tools, and copy the Publishable Key and Secret Key.
+
+3. **What is a Checkout Session in Stripe?**
+
+    A Checkout Session defines the payment details, such as line items, payment methods, and redirect URLs for success or cancellation.
+
+4. **What is the role of the *stripe.js* library?**
+
+    The `stripe.js` library provides the client-side integration to redirect customers to the Stripe-hosted payment page.
+
+5. **Can I customize the Stripe Checkout experience?**
+
+    Yes, Stripe allows customization of branding, including logo, color, and language, via the Stripe dashboard.
+
+6. **What happens if the success or cancel URL is incorrect?**
+
+    Stripe will not redirect the user correctly. Ensure the URLs are valid and publicly accessible.
+
+7. **Is Stripe compatible with multiple currencies?**
+
+    Yes, Stripe supports transactions in multiple currencies, configurable via the Stripe dashboard.
+
+8. **How can I debug issues in the integration?**
+
+    Check the Stripe dashboard logs, use test cards, and review the backend error logs for insights.
+
+9. **What are the advantages of using Stripe?**
+
+    Stripe offers a secure, scalable solution with multi-currency support, advanced features, and easy integration for businesses of all sizes.
+
+---
