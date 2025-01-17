@@ -259,4 +259,91 @@ This links the GraphQL schema to the endpoint and provides the resolver function
 
         <img src="./graphQL-query-4.png" alt="graphQL-query-4" width="90%" />
 
+### Step 8 : Testing and Debugging
+
+1. **Handling 404 Errors (Page Not Found)** : 
+    
+    For routes that don’t exist, send a 404 response to indicate the resource isn’t found.
+
+    ```
+        // File : /app.js
+
+        // Handling 404 Errors (Page Not Found)
+        app.use((req, res, next) => {
+            res.status(404).json({ error: 'Page not found' });
+        });
+    ```
+
+2. **Basic Error-Handling Middleware** : 
+    
+    Set up a basic error-handling middleware that catches all errors and sends a response to the user.
+
+    ```
+        // File : /app.js
+
+        // General error handling middleware
+        app.use((err, req, res, next) => {
+            console.error(err)                  // Optionally log the error for debugging
+            res.status(500).json({ error: 'Something went wrong!' })
+        })
+    ```
+3. **Use console.log to inspect incoming queries, arguments, and resolver behavior**
+
+4. **Add error handlers for unexpected issues in resolvers** :
+    ```
+        // File : /app.js
+        // Resolver function for fetching single book
+        book: ({ id }) => {
+            try {
+                const book = booksData.find((book) => book.id === id)
+                if (!book) throw new Error('Book not found');
+                return book;
+            } catch (error) {
+                console.error(error);
+                throw new Error('Error fetching book data');
+            }
+        }
+    ```
+
+5. **Return Meaningful Error Messages** : 
+
+    If there’s an error, provide a user-friendly message without exposing sensitive information.
+
+
+## Implementation (refer GitHub Repo)
+[GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/graphQL/implementation)
+
+## Conclusion
+GraphQL is changing how we work with APIs, making them more flexible and efficient compared to traditional REST APIs. It allows clients to ask for only the data they need, reducing unnecessary data transfer and improving performance. With features like a single endpoint, strongly typed schemas, and introspection, it’s easy to use and powerful for developers. It is a great tool for modern apps, and once you get the hang of it, you can explore advanced features like real-time updates with subscriptions or optimizing performance with caching. 
+
+## References and Resources
+
+### Links 
+- [GraphQL Documentation](https://graphql.org/learn/)
+- [NodeJS Official Documentation](https://nodejs.org/docs/latest/api/)
+- [Express Documentation](https://expressjs.com/)
+
+
+### FAQs (Frequently Asked Questions)
+
+1. **How is GraphQL different from REST?**
+
+    In REST, we have multiple endpoints for different resources while GraphQL has a single endpoint. It allows clients to specify exactly what data they need, avoiding over-fetching or under-fetching.
+
+2. **Can GraphQL replace REST APIs completely?**
+    
+    GraphQL is a powerful alternative but not necessarily a replacement for REST. The choice depends on your project requirements. For example, GraphQL excels in cases requiring flexible queries, while REST might be simpler for small applications.
+
+3. **What is introspection in GraphQL?**
+
+    Introspection is a feature that allows clients to query the schema itself to discover available types, fields, and operations. It’s helpful for debugging and understanding the API.
+
+4. **What is the role of `graphql-http` in a GraphQL server?**
+
+    The `graphql-http` library helps handle GraphQL requests in a Node.js server, integrating GraphQL with frameworks like Express.
+
+5. **Is GraphQL suitable for real-time applications?**
+
+    Yes, GraphQL supports real-time data updates using subscriptions. This makes it fit for applications like chat apps, live sports updates, and stock price tracking.
+
 ---

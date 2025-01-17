@@ -445,7 +445,7 @@ Integrating Stripe with Node.js simplifies payment processing by enabling busine
 - [EJS Documentation](https://github.com/mde/ejs/wiki/Using-EJS-with-Express)
 
 
-## FAQs (Frequently Asked Questions)
+### FAQs (Frequently Asked Questions)
 
 1. **What is the purpose of the .env file in Stripe integration?**
 

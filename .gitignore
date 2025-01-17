@@ -8,4 +8,4 @@
 /nats-server/implementation/nats-publisher/node_modules
 /nats-server/implementation/nats-subscriber/node_modules
 /stripe-integration/implementation/node_modules
-/graphQL//implementation/node_modules
+/graphQL/implementation/node_modules
