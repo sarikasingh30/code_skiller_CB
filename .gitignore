@@ -9,3 +9,4 @@
 /nats-server/implementation/nats-subscriber/node_modules
 /stripe-integration/implementation/node_modules
 /graphQL/implementation/node_modules
+/caching-using-Redis/implementation/node_modules

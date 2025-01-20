@@ -322,6 +322,9 @@ GraphQL is changing how we work with APIs, making them more flexible and efficie
 - [GraphQL Documentation](https://graphql.org/learn/)
 - [NodeJS Official Documentation](https://nodejs.org/docs/latest/api/)
 - [Express Documentation](https://expressjs.com/)
+- [graphql NPM Package](https://www.npmjs.com/package/graphql)
+- [graphql-http NPM Package](https://www.npmjs.com/package/graphql-http)
+
 
 
 ### FAQs (Frequently Asked Questions)
