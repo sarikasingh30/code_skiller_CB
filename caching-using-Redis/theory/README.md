@@ -382,3 +382,27 @@ Updated dependencies in the **package.json** file
 - [Redis NPM Package](https://www.npmjs.com/package/redis)
 - [Axios Documentation](https://axios-http.com/docs/intro)
 - [Axios NPM package](https://www.npmjs.com/package/axios)
+
+### FAQs (Frequently Asked Questions)
+
+1. **How can Redis help in improving application performance?**
+    
+    Redis helps by storing frequently accessed data in memory, reducing the need to fetch it from slower sources like databases or external APIs. This significantly speeds up response times and reduces the load on your backend systems.
+
+2. **Why use Redis with Node.js?**
+
+    Redis integrates well with Node.js due to its asynchronous nature, allowing efficient caching, session management, and real-time data storage. By using Redis, you can reduce frequent database queries, cache API responses, and improve performance.
+
+3. **How long does the data stay in Redis?**
+
+    The data is stored in Redis with an expiration time, meaning it will automatically be removed after the specified time. In the example provided, the cached GitHub data expires after 1 hour (3600 seconds).
+
+4. **What happens if the same data is already cached in Redis?**
+
+    Redis only stores new data if it doesn't already exist, thanks to the `NX (set only if not exists)` option. If the data is already cached, it will not be overwritten, ensuring that the cache remains efficient and up to date.
+
+5. **Is Redis suitable for all types of applications?**
+
+    Redis is ideal for applications where speed and low latency are critical, such as real-time applications, caching, messaging, and session storage. For long-term data storage, databases like MySQL or MongoDB may be more appropriate.
+
+---
