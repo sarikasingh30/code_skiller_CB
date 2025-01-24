@@ -26,7 +26,7 @@ In the past, developers and system administrators often relied on tools like Vir
  Can be hard to manage many VMs and share them with others.                    | Easier to manage and share since containers run the same way on any machine with Docker. |
 Less efficient because it runs a full OS, which can slow things down.         | More efficient because it uses the host’s operating system, which saves time and resources. |
 
-## Key-Concepts
+## Key-Concepts of Docker
 
 ### DOCKER CONTAINER => 
 A Docker container is a lightweight, portable, and isolated environment that packages an application and its dependencies together, ensuring it runs consistently across different systems. Containers share the host operating system's kernel, making them efficient and faster to start compared to virtual machines.
@@ -49,8 +49,6 @@ A Docker volume is a way to store data outside a container so it doesn’t get l
 4. Push that docker container to the docker registry.
 5. Others can pull it from docker registry and can run the app on their local machine.
 6. After making the required changes, they can push the code to the docker registry again.
-
-
 
 ## Step-by-Step Guide to Docker Installation and Setup
 
@@ -113,4 +111,34 @@ When Docker Desktop runs, the Docker Daemon is automatically started.
 ### Step 9 : Login to `https://hub.docker.com/` and create an account
 
 <img src="./docker-hub.png" alt="docker-hub" width=90% />
+
+## Lets Download and Run an Ubuntu Docker Image from Docker Hub
+
+### Step 1 : Check your system's OS name
+- Open the terminal or powershell and run the below command.
+    - **macOS users** =>
+
+        ```
+            uname  
+        ```
+    - **windows users** =>
+
+        ```
+            systeminfo | findstr /B /C:"OS Name"
+        ```
+
+        <img src="./docker-os-name.png" alt="docker-os-name" width=90% />
+
+### Step 2 : Open the Explore section on `https://hub.docker.com/` and search for ubuntu
+
+<img src="./docker-hub-explore-ubuntu.png" alt="docker-hub-explore-ubuntu" width=90% />
+
+**Click on ubuntu**
+
+### Step 3 : Official Ubuntu Image
+
+This is the official Ubuntu image page on Docker Hub (https://hub.docker.com/). It provides details about the Ubuntu Docker image
+
+<img src="./docker-hub-ubuntu-repo.png" alt="docker-hub-ubuntu-repo" width=90% />
+
 
