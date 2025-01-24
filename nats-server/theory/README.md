@@ -1,4 +1,4 @@
-# NATS Socket Architecture: A Beginner's Guide
+# NATS Socket Architecture : A Beginner's Guide
 The NATS socket architecture is the foundation of its lightweight and high-performance messaging system. It manages how messages are sent and received between clients and the NATS server using sockets. The server can handle thousands of client connections simultaneously by sharing sockets through a process called multiplexing. To ensure efficiency, it uses event-driven methods to manage all active socket input/output (I/O) operations without causing delays or blocking other tasks.
 
 <img src="./nats.png" alt="nats-server" width="80%" />
