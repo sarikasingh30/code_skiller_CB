@@ -10,3 +10,4 @@
 /stripe-integration/implementation/node_modules
 /graphQL/implementation/node_modules
 /caching-using-Redis/implementation/node_modules
+/docker/implementation/node_modules
