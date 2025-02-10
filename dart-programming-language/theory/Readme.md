@@ -220,4 +220,39 @@ Comments are non-executable line of codes. These are essential for writing reada
             }
         ```
 
+### User Input in Dart
 
+User input is handled using the `dart:io` library, which provides the `stdin.readLineSync()` method to read input from the console.
+
+```
+    import 'dart:io';
+    void main() {
+        print("Enter your name:");
+        String? name = stdin.readLineSync(); // Reads user input
+        print("Hello, $name! Welcome to Dart.");
+    }
+```
+<img src="./dart-input-taking-app.png" alt="dart-input-taking-app" width=90% />
+
+## Conclusion 
+
+Dart is a modern, efficient, and flexible programming language that serves as the foundation for Flutter development. It supports both JIT and AOT compilation, ensuring fast development and optimized performance. With strong type safety, null safety, and robust data structures, Dart makes writing reliable code easier. Its support for object-oriented programming, collections, and special types like dynamic and Object provides flexibility for developers. Additionally, Dart’s seamless handling of asynchronous operations and user input simplifies real-world application development. Mastering Dart is the first step towards building powerful, cross-platform applications with Flutter.
+
+## References and Resources
+
+### Links 
+
+- [Dart Documentation](https://dart.dev/docs)
+
+### FAQs (Frequently Asked Questions)
+
+1. **What is hot reload in Dart and Flutter?**
+    
+    Hot reload allows developers to instantly see code changes without restarting the entire app. It speeds up development by preserving the current app state while applying updates.
+
+2. **What is null safety in Dart, and why is it important?**
+    
+    Null safety ensures that variables cannot hold null unless explicitly allowed using ?. This prevents unexpected runtime crashes due to null reference errors.
+
+
+---
