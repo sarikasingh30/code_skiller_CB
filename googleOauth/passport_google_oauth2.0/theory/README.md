@@ -50,27 +50,27 @@ We will use Node.js and Google API to enable secure user authentication and data
 ### Step 1 : Setup a basic Node.js App
 
 ```    
-npm init -y
+    npm init -y
 ```
 Now, create **app.js** file for the Node.js backend server.
 
 ```
-// File: /app.js
+    // File: /app.js
 
-const express=require("express")
-const app=express()
-const PORT=3030
-// Express.js Middleware
-app.use(express.json())
+    const express=require("express")
+    const app=express()
+    const PORT=3030
+    // Express.js Middleware
+    app.use(express.json())
 
-app.listen(PORT,(err)=>{
-    if(err){
-        console.log(err)
-    }
-    else{
-        console.log(`Listening on PORT: ${PORT}`)
-    }
-})
+    app.listen(PORT,(err)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log(`Listening on PORT: ${PORT}`)
+        }
+    })
 ```
 
 ### Step 2 : Install the required dependencies
@@ -82,7 +82,7 @@ app.listen(PORT,(err)=>{
 - **connect-mongo** — enables MongoDB Session Storage by storing session data in a MongoDB database when used with express-session in a Node.js application. This ensures session persistence across server restarts, providing better scalability and durability than in-memory storage.
 
 ```
-npm i express mongoose ejs bcrypt dotenv express-session passport passport-google-oauth20 connect-mongo
+    npm i express mongoose ejs bcrypt dotenv express-session passport passport-google-oauth20 connect-mongo
 ```
 
 ### Step 3 : Create **.env** file and add MongoDB Url and Secret Key to it.
@@ -90,8 +90,8 @@ npm i express mongoose ejs bcrypt dotenv express-session passport passport-googl
 - Now, we save the MongoDB URL of the MongoDB Atlas and the Secret Key for the session
 
 ```
-MONGO_URL=""
-SECRET_KEY=""    
+    MONGO_URL=""
+    SECRET_KEY=""    
 ```
 
 ### Step 4 : Set up a Google Developer Console Project
@@ -134,37 +134,37 @@ SECRET_KEY=""
 9. To use these credentials, save them in a **.env** file.
 
     ```
-    GOOGLE_CLIENT_ID=""
-    GOOGLE_CLIENT_SECRET=""
+        GOOGLE_CLIENT_ID=""
+        GOOGLE_CLIENT_SECRET=""
     ```
 
 ### Step 5 : Connect MongoDB database using mongoose in app.js
 
 ```
-// File: /app.js
+    // File: /app.js
 
-const express = require("express")
-const mongoose = require('mongoose');
-const app = express()
-const dotEnv = require("dotenv")    // import dotenv npm package
-const PORT = 3030
-dotEnv.config()                     // configuring dotenv
-//Express.js Middleware
-app.use(express.json())
-//Express.js Middleware
-app.use(express.urlencoded({ extended: true }))
-mongoose.connect(process.env.MONGO_URL)               // fetching MONGO_URL from .env file
-    .then(() => {
-        console.log('database Connected!')
-        app.listen(PORT, (err) => {
-            if (err) {
-                console.log(err)
-            }
-            else {
-                console.log(`Listening on PORT ${PORT}`)
-            }
-        })
-    }).catch((err) => console.log(err));
+    const express = require("express")
+    const mongoose = require('mongoose');
+    const app = express()
+    const dotEnv = require("dotenv")    // import dotenv npm package
+    const PORT = 3030
+    dotEnv.config()                     // configuring dotenv
+    //Express.js Middleware
+    app.use(express.json())
+    //Express.js Middleware
+    app.use(express.urlencoded({ extended: true }))
+    mongoose.connect(process.env.MONGO_URL)               // fetching MONGO_URL from .env file
+        .then(() => {
+            console.log('database Connected!')
+            app.listen(PORT, (err) => {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log(`Listening on PORT ${PORT}`)
+                }
+            })
+        }).catch((err) => console.log(err));
 
 ```
 

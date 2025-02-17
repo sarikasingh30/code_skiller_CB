@@ -1,6 +1,7 @@
 /googleOauth/passport_google_oauth2.0/implementation/.env
 /razorpay-integration/implementation/.env
 /stripe-integration/implementation/.env
+/cqrs-pattern-with-nodejs/implementation/.env
 
 
 /googleOauth/passport_google_oauth2.0/implementation/node_modules
@@ -11,3 +12,5 @@
 /graphQL/implementation/node_modules
 /caching-using-Redis/implementation/node_modules
 /docker/implementation/node_modules
+/cqrs-pattern-with-nodejs/implementation/node_modules
+
