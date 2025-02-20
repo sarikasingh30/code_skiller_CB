@@ -10,6 +10,7 @@ Choosing the right architecture is not just a technical decision — it’s a bu
 Over the years, two dominant architectural patterns have emerged:
 
 1️. **Monolithic Architecture** – A traditional, all-in-one approach where every feature is tightly coupled into a single codebase.
+
 2️. **Microservices Architecture** – A modern, decentralized approach where different features are split into independent services that communicate with each other.
 
 Both architectures come with their own strengths and trade-offs. While monolithic applications are simpler to develop and deploy, they become difficult to scale as complexity increases. On the other hand, microservices provide greater flexibility and fault isolation, but introduce challenges in managing multiple independent services.
@@ -23,8 +24,11 @@ Monolithic architecture is the traditional software development approach where a
 ### How Monolithic Architecture Works?
 
 A monolithic application typically follows a three-layered or n-tier structure :
+
 1️. **Presentation Layer (Front-end)** – Handles the user interface and interactions.
+
 2️. **Business Logic Layer (Back-end)** – Processes data, applies business rules, and executes operations.
+
 3️. **Data Access Layer (Database Management)** – Manages storage and retrieval of data.
 
 All these layers reside in a single codebase, and the entire system is deployed as a single unit.
