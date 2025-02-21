@@ -1,0 +1,24 @@
+syntax = "proto3";            // Specifies that the file follows the Proto3 (Protocol Buffer).
+package employees;           // the namespace for the service
+
+// Declares a gRPC service named EmployeeInfo, which will contain RPC methods.
+service EmployeeInfo {
+
+    // an RPC method SayInfo that takes a `HelloRequest` message & returns a `HelloResponse` message as output
+    rpc SayInfo (HelloRequest) returns (HelloResponse);
+}
+
+// Defines a message type (HelloRequest) that acts as the request format for the SayInfo method.
+
+message HelloRequest {
+  // Declares a field, its type and assigned a unique field number (used for binary serialization and backward compatibility)
+  string name = 1;
+  string role = 2;
+  int32 empID = 3;
+}
+
+// Defines a message type (HelloResponse) that acts as the response format for the SayInfo method
+
+message HelloResponse {
+  string message = 1;
+}

@@ -363,7 +363,8 @@ Microservices communication with NATS involves using NATS as a messaging system 
 
     3. **Return Meaningful Error Messages** : If there’s an error, provide a user-friendly message without exposing sensitive information.
 
-
+## Implementation (refer GitHub Repo)
+[GITHUB LINK](https://github.com/sarikasingh30/code_skiller_CB/tree/main/nats-server/implementation)
 
 ## Conclusion 
 The NATS socket architecture is designed for:

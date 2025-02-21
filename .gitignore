@@ -13,4 +13,5 @@
 /caching-using-Redis/implementation/node_modules
 /docker/implementation/node_modules
 /cqrs-pattern-with-nodejs/implementation/node_modules
+/gRPC/implementation/node_modules
 
